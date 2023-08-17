@@ -10,6 +10,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "AllowOrigin",
+        builder =>
+        {
+            builder.WithOrigins("https://localhost:5173/*", "http://localhost:5173/*", "http://localhost:5173", "https://localhost:5173")
+                                .SetIsOriginAllowedToAllowWildcardSubdomains()
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+        });
+});
 // builder.Services.AddDbContext<AppointmentDbContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 
 var app = builder.Build();
@@ -20,6 +31,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowOrigin");
 
 app.UseHttpsRedirection();
 

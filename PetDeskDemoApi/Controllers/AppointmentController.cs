@@ -7,9 +7,11 @@ using PetDeskDemoApi.Data;
 using Azure;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Cors;
 
 namespace PetDeskDemoApi.Controllers
 {
+    [EnableCors("AllowOrigin")]
     [ApiController]
     [Route("[controller]")]
     public class AppointmentController : ControllerBase
